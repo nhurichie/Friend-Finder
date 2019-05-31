@@ -14,7 +14,7 @@
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 </head>
 
-<body> 
+<body>
   <div class="container">
     <div class="jumbotron">
       <div class="Title">
@@ -23,89 +23,70 @@
       <hr />
       <h2 class="Title"> Answer a few questions to meet your friend!</h2>
       <h2 class="Title"> More commonality means more compatibility!</h2>
-      <hr />
-      <h3><strong>Questions For You - About You: </strong></h3>
-      <h4> Name (This is Required)</h4>
-      <input type="text" name="" id="photo" class="form-control" requried />
-      <h4>Link to Photo Image (This is Required)</h4>
-      <input type="text" name="" id="photo" class="form-control" requried />
-      <hr />
-      <h3><strong>Queestion One: </strong></h3>
-      <h4>I would consider myself a foodie.</h4>
-      <select data-placeholder="" class="chosen-select" id="qOne">
-        <option value=""></option>
-        <option value="1">1 (Strongly Disagree)</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5" selected>5 (Strong Agree)</option>
-      </select>
-
-      <h3><strong>Queestion Two: </strong></h3>
-      <h4>I would consider myself a picky-eater.</h4>
-      <select data-placeholder="" class="chosen-select" id="qTwo">
-        <option value=""></option>
-        <option value="1">1 (Strongly Disagree)</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5" selected>5 (Strong Agree)</option>
-      </select>
-
-      <h3><strong>Queestion Three: </strong></h3>
-      <h4>I would say I am willing to try all types of food.</h4>
-      <select data-placeholder="" class="chosen-select" id="qThree">
-        <option value=""></option>
-        <option value="1">1 (Strongly Disagree)</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5" selected>5 (Strong Agree)</option>
-      </select>
-
-      <h3><strong>Queestion Four: </strong></h3>
-      <h4>If I don't like something the first time, I am willing to try it again.</h4>
-      <select data-placeholder="" class="chosen-select" id="qFour">
-        <option value=""></option>
-        <option value="1">1 (Strongly Disagree)</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5" selected>5 (Strong Agree)</option>
-      </select>
-
-      <h3><strong>Queestion Five: </strong></h3>
-      <h4>I like to cook my own food.</h4>
-      <select data-placeholder="" class="chosen-select" id="qFive">
-        <option value=""></option>
-        <option value="1">1 (Strongly Disagree)</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5" selected>5 (Strong Agree)</option>
-      </select>
-
-      <h3><strong>Queestion Six: </strong></h3>
-      <h4>I like learning how to create new receipes.</h4>
-      <select data-placeholder="" class="chosen-select" id="qSix">
-        <option value=""></option>
-        <option value="1">1 (Strongly Disagree)</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5" selected>5 (Strong Agree)</option>
-      </select>
-
       <br />
-      <br />
-      <button type="submit" class="btn btn-primary btn-lg-btn-block" id="submit">
-        <i class="fa fa-check-circle" aria-hidden="true"></i>SUBMIT
-      </button>
 
-      <footer class="footer text-center">
-        <h1>Nhu Richie</h1>
-      </footer>
+      <div class="">
+        <a href="survey.html">
+          <button type="button" class="btn btn-lg btn-primary">
+            <h4>
+              <span class="glyphicon glyphicon-list-alt">Click here to go to Survey!</span>
+            </h4>
+          </button>
+        </a>
+      </div><br>
+      <div><a href="../data/friends.js">API Generated Friends List</a></div>
     </div>
-</body>
+  </div>
+  <div id="resultsModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+        <h2 class="modal-title"><strong>BEST MATCH!</strong></h2>
+      </div>
+      <div class="modal-body">
+        <h2 id="matchName"></h2>
+        <img id="matchImg" src="#" alt="Placeholder in case user photo doesn't show!">
+      </div>
+    </div>
+  </div> 
+  <script type="text/javascript">
+    $("submit").on("click", function () {
+      function validateSurveyForm() {
+        var isValid = true;
+        $(".form-control").each(function () {
+          if ($(this).val() === "") isValid = false;
+        });
+        $(".chose-select").each(function () {
+          if ($(this).val() === "") isValue = false;
+        });
+        return isValid;
+      }
+      if (validateSurveyForm() === true) {
+        var userData = {
+          name: $("name").val(),
+          photo: $("photo").val(),
+          scores: [
+            $("qOne").val(),
+            $("qTwo").val(),
+            $("qThree").val(),
+            $("qFour").val(),
+            $("qFive").val(),
+            $("qSix").val(),
+          ]
+        };
+        var webURL = window.location.origin;
 
-</html>
+        $.post(webURL + "/data/frinds", userData, function (data) {
+          $("matchName").text(data.name);
+          $("matchImg").attr(data.photo);
+          $("resultsModal").modal("toggle");
+        });
+      } else {
+        alert("Reminder: Fill out all fields before clicking submit!");
+      }
+    });
+  </script>
+</body>
+<html>
