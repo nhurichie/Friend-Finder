@@ -31,8 +31,33 @@
       <div><a href="../data/friends.js">Friends List</a></div>
     </div>
   </div>
-
-
+  <script type="text/javascript">
+    $("submit").on("click", function () {
+      function validateSurveyForm() {
+        var isValid = true;
+        $(".form-control").each(function () {
+          if ($(this).val() === "") isValid = false;
+        });
+        $(".chose-select").each(function () {
+          if ($(this).val() === "") isValue = false;
+        });
+        return isValid;
+      }
+      if (validateSurveyForm() === true) {
+        var userData = {
+          name: $("name").val(),
+          photo: $("photo").val(),
+          scores: [
+            $("qOne").val(),
+            $("qTwo").val(),
+            $("qThree").val(),
+            $("qFour").val(),
+            $("qFive").val(),
+            $("qSix").val(),
+          ]
+        }
+      }
+    })
+  </script>
 </body>
-
-</html>
+<html>

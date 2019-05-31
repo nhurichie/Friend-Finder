@@ -34,13 +34,30 @@ module.exports = function (app) {
     console.log("Best Match Friend Differences: " + ffMatch.ffDifference);
     console.log("++++++++++++++++++++++++------------------------------");
 
-    for (var i = 0; i<friends.length; i++){
+    for (var i = 0; i < friends.length; i++) {
       console.log(friends[i].name);
       totDifference = 0;
-      conso
+      console.log("Total Difference: " + totDifference);
+      console.log("Best match Friend Different: " + ffMatch.ffDifference);
+
+      var beFFScore = friends[i].scores.reduce((a, b) => a + b, 0);
+      console.log("Total Friend Score: " + beFFScore);
+      totDifference += Math.abs(sum - beFFScore);
+      console.log("-----------------------------> " + totDifference);
+
+
+      if (totDifference <= beFFScore.ffDifference) {
+        beFFScore.name = friends[i].name;
+        beFFScore.photo = friends[i].photo;
+        beFFScore.ffDifference = totDifference;
+      }
+      console.log(totDifference + " Total Difference");
     }
 
-
+    console.log(beFFScore);
+    friends.push(userData);
+    console.log("New User Added: ");
+    console.log(userData);
+    res.json(beFFScore);
   });
-
-}
+};
