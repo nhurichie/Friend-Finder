@@ -16,20 +16,20 @@ module.exports = function (app) {
     var userName = userData.name;
     var userScores = userData.scores;
 
-    var ffUnion = userScores.map(function (item) {
+    var ffScores = userScores.map(function (item) {
       return parseInt(item, 10);
     });
 
     userData = {
       name: req.body.name,
       photo: req.body.photo,
-      scores: ffUnion
+      scores: ffScores
     };
 
     console.log("Name: " + userName);
     console.log("User Score: " + userScores);
 
-    var sum = ffUnion.redue((a, b) => a + b, 0);
+    var sum = ffScores.reduce((a, b) => a + b, 0);
     console.log("Sum of Forever Friend Score: " + sum);
     console.log("Best Match Friend Differences: " + ffMatch.ffDifference);
     console.log("++++++++++++++++++++++++------------------------------");
