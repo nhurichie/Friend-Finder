@@ -10,7 +10,7 @@ module.exports = function (app) {
     var ffMatch = {
       name: "",
       photo: "",
-      ffDifference = 1000
+      ffDifference = 100
     };
     var userData = req.body;
     var userName = userData.name;
