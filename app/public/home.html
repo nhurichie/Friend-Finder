@@ -78,7 +78,7 @@
         };
         var webURL = window.location.origin;
 
-        $.post(webURL + "/data/frinds", userData, function (data) {
+        $.post(webURL + "/data/friends", userData, function (data) {
           $("matchName").text(data.name);
           $("matchImg").attr(data.photo);
           $("resultsModal").modal("toggle");
